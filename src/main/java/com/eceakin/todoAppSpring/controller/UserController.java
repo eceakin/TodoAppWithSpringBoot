@@ -1,26 +1,18 @@
 package com.eceakin.todoAppSpring.controller;
 
-import java.util.List;
-
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import com.eceakin.todoAppSpring.application.dtos.CreateUserDto;
 import com.eceakin.todoAppSpring.application.dtos.UserDto;
 import com.eceakin.todoAppSpring.application.services.UserService;
+import com.eceakin.todoAppSpring.security.SecurityUtils;
 
-import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,56 +20,40 @@ import lombok.RequiredArgsConstructor;
 @CrossOrigin(origins = "*")
 public class UserController {
     
-    private final UserService userService;
+private final UserService userService;
     
-    @PostMapping
-    public ResponseEntity<UserDto> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
-        UserDto userDto = userService.createUser(createUserDto);
-        return new ResponseEntity<>(userDto, HttpStatus.CREATED);
-    }
-    
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
-        return userService.getUserById(id)
+    /* @GetMapping("/me")
+    public ResponseEntity<UserDto> getCurrentUser() {
+        Long currentUserId = SecurityUtils.getCurrentUserId();
+        return userService.getUserById(currentUserId)
                 .map(user -> ResponseEntity.ok(user))
                 .orElse(ResponseEntity.notFound().build());
-    }
-    
-    @GetMapping
-    public ResponseEntity<List<UserDto>> getAllUsers() {
-        List<UserDto> users = userService.getAllUsers();
-        return ResponseEntity.ok(users);
-    }
-    
-    @GetMapping("/username/{username}")
-    public ResponseEntity<UserDto> getUserByUsername(@PathVariable String username) {
+    } */  @GetMapping("/me")
+    public ResponseEntity<UserDto> getCurrentUser() {
+        String username = SecurityUtils.getCurrentUsername();
         return userService.getUserByUsername(username)
-                .map(user -> ResponseEntity.ok(user))
+                .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
     
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable Long id, 
-                                            @Valid @RequestBody CreateUserDto updateUserDto) {
-        UserDto userDto = userService.updateUser(id, updateUserDto);
+    @PutMapping("/me")
+    public ResponseEntity<UserDto> updateCurrentUser(@Valid @RequestBody CreateUserDto updateUserDto) {
+        Long currentUserId = SecurityUtils.getCurrentUserId();
+        UserDto userDto = userService.updateUser(currentUserId, updateUserDto);
         return ResponseEntity.ok(userDto);
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/me")
+    public ResponseEntity<Void> deleteCurrentUser() {
+        Long currentUserId = SecurityUtils.getCurrentUserId();
+        userService.deleteUser(currentUserId);
         return ResponseEntity.noContent().build();
     }
     
-    @GetMapping("/search")
-    public ResponseEntity<List<UserDto>> searchUsers(@RequestParam String keyword) {
-        List<UserDto> users = userService.searchUsers(keyword);
-        return ResponseEntity.ok(users);
-    }
-    
-    @GetMapping("/{id}/with-todolists")
-    public ResponseEntity<UserDto> getUserWithTodoLists(@PathVariable Long id) {
-        return userService.getUserWithTodoLists(id)
+    @GetMapping("/me/with-todolists")
+    public ResponseEntity<UserDto> getCurrentUserWithTodoLists() {
+        Long currentUserId = SecurityUtils.getCurrentUserId();
+        return userService.getUserWithTodoLists(currentUserId)
                 .map(user -> ResponseEntity.ok(user))
                 .orElse(ResponseEntity.notFound().build());
     }

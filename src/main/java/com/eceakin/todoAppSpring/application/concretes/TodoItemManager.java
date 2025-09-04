@@ -1,6 +1,8 @@
 package com.eceakin.todoAppSpring.application.concretes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -72,7 +74,8 @@ public class TodoItemManager implements TodoItemService {
     
     @Override
     public List<TodoItemDto> getOverdueTodoItems() {
-        return todoItemRepository.findOverdueTodoItems(LocalDateTime.now()).stream()
+        LocalDate today = LocalDate.now();
+        return todoItemRepository.findOverdueTodoItems(today).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
@@ -126,7 +129,7 @@ public class TodoItemManager implements TodoItemService {
         todoItem.setTitle(createTodoItemDto.getTitle());
         todoItem.setDescription(createTodoItemDto.getDescription());
         todoItem.setPriority(createTodoItemDto.getPriority());
-      //  todoItem.setDueDate(createTodoItemDto.getDueDate());
+        todoItem.setDueDate(createTodoItemDto.getDueDate());
         todoItem.setTodoList(todoList);
         return todoItem;
     }

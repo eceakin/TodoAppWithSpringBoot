@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -30,7 +32,7 @@ public class TodoItem {
     private Priority priority = Priority.MEDIUM;
     
     @Column(name = "due_date")
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
     
     @Column(name = "created_at")
     private LocalDateTime createdAt;

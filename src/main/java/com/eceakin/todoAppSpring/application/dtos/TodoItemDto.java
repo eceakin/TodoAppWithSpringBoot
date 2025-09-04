@@ -3,6 +3,8 @@ package com.eceakin.todoAppSpring.application.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.eceakin.todoAppSpring.entities.TodoItem.Priority;
@@ -16,7 +18,7 @@ public class TodoItemDto {
     private String description;
     private Boolean completed;
     private Priority priority;
-    private LocalDateTime dueDate;
+    private LocalDate dueDate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime completedAt;
