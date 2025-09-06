@@ -2,7 +2,7 @@
 ```markdown
 # 🚀 TodoApp - Spring Boot & React Full Stack Uygulaması
 
-Modern, güvenli ve ölçeklenebilir bir yapılacaklar listesi uygulaması. Spring Boot backend ve React frontend ile geliştirilmiş tam kapsamlı bir todo uygulaması.
+Modern, güvenli ve ölçeklenebilir bir yapılacaklar listesi uygulaması.   Spring Boot backend ve React frontend ile geliştirilmiş tam kapsamlı bir todo uygulaması.
 
 ## 📋 Özellikler
 
