@@ -178,35 +178,12 @@ export JWT_SECRET=your-production-jwt-secret
 4. Push edin (`git push origin feature/amazing-feature`)
 5. Pull Request oluşturun
 
-## 📝 Lisans
-
-Bu proje MIT lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
 
 ## 👨‍💻 Geliştirici
 
 **Ece Akın**
-- Email: your-email@example.com
+- Email: akinecee3535@hotmail.com
 - GitHub: [@eceakin](https://github.com/eceakin)
 
-## 🙏 Teşekkürler
-
-- Spring Boot ekibine harika framework için
-- React ekibine mükemmel UI kütüphanesi için
-- Tüm open source katkıcılarına
 
 ---
-
-**Not:** Bu README proje yapısına göre otomatik olarak oluşturulmuştur. Güncellemeler için lütfen proje dosyalarını kontrol edin.
-```
-
-Bu README.md dosyası şunları içerir:
-- Proje tanıtımı ve özellikler
-- Teknoloji stack detayları
-- Adım adım kurulum rehberi
-- API dokümantasyonu
-- Veritabanı yapısı
-- Deployment talimatları
-- Katkı rehberi
-- Lisans bilgisi
-
-Projenizde öne çıkan JWT authentication, PostgreSQL entegrasyonu, React frontend gibi özellikleri vurguladım. İhtiyacınız olursa frontend tarafı için ayrıntılı kurulum talimatları da ekleyebilirim! 😊
