@@ -30,7 +30,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         
         String requestURI = request.getRequestURI();
         log.debug("Processing request: {} {}", request.getMethod(), requestURI);
-        
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
         // Skip auth for public endpoints
         if (requestURI.startsWith("/api/auth/") || requestURI.startsWith("/api/debug/")) {
             log.debug("Skipping auth for public endpoint: {}", requestURI);
